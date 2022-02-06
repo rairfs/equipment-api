@@ -32,6 +32,9 @@ public class Equipment {
     private String place;
 
     @Column(nullable = false)
+    private int quantity;
+
+    @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private EquipmentType type;
 

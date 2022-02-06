@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.validation.constraints.Max;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
@@ -25,6 +26,9 @@ public class EquipmentDTO {
     @NotEmpty
     @Size(min = 3, max = 150)
     private String place;
+
+    @NotEmpty
+    private String quantity;
 
     @NotEmpty
     @Enumerated(EnumType.STRING)

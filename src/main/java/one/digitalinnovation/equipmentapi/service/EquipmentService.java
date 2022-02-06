@@ -24,11 +24,10 @@ public class EquipmentService {
 
     private final EquipmentMapper equipmentMapper = EquipmentMapper.INSTANCE;
 
-    public MessageResponseDTO createEquipment(EquipmentDTO equipmentDTO){
+    public EquipmentDTO createEquipment(EquipmentDTO equipmentDTO){
         Equipment equipmentToSave = equipmentMapper.toModel(equipmentDTO);
-
-        Equipment savedEquipment = equipmentRepository.save(equipmentToSave);
-        return createMessageDTO("Created person with ID ", savedEquipment.getId());
+        Equipment createdEquipment = equipmentRepository.save(equipmentToSave);
+        return equipmentMapper.toDTO(createdEquipment);
     }
 
     public List<EquipmentDTO> listAllEquipments(){
@@ -57,10 +56,20 @@ public class EquipmentService {
         equipmentRepository.deleteById(id);
     }
 
-    public EquipmentDTO changeQuantity(Long id, int quantity) throws EquipmentNotFoundException {
-        Equipment equipment = verifyIfExists(id);
-        equipment.setQuantity(quantity);
-        return equipmentMapper.toDTO(equipment);
+    public EquipmentDTO incrementQuantity(Long id, int quantity) throws EquipmentNotFoundException {
+        Equipment equipmentToIncrement = verifyIfExists(id);
+        int oldEquipmentValue = equipmentToIncrement.getQuantity();
+        int actualEquipmentValue = oldEquipmentValue + quantity;
+        equipmentToIncrement.setQuantity(actualEquipmentValue);
+        return equipmentMapper.toDTO(equipmentToIncrement);
+    }
+
+    public EquipmentDTO decrementQuantity(Long id, int quantity) throws EquipmentNotFoundException {
+        Equipment equipmentToDecrement = verifyIfExists(id);
+        int oldEquipmentValue = equipmentToDecrement.getQuantity();
+        int actualEquipmentValue = oldEquipmentValue - quantity;
+        equipmentToDecrement.setQuantity(actualEquipmentValue);
+        return equipmentMapper.toDTO(equipmentToDecrement);
     }
 
     private MessageResponseDTO createMessageDTO(String message, Long id) {

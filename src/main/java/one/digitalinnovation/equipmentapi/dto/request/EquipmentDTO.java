@@ -4,11 +4,13 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import one.digitalinnovation.equipmentapi.enums.EquipmentType;
 
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Data
@@ -19,18 +21,18 @@ public class EquipmentDTO {
 
     private Long id;
 
-    @NotEmpty
+    @NotNull
     @Size(min = 2, max = 100)
     private String name;
 
-    @NotEmpty
+    @NotNull
     @Size(min = 3, max = 150)
     private String place;
 
-    @NotEmpty
-    private String quantity;
+    @NotNull
+    private Integer quantity;
 
-    @NotEmpty
+    @NotNull
     @Enumerated(EnumType.STRING)
-    private String type;
+    private EquipmentType type;
 }

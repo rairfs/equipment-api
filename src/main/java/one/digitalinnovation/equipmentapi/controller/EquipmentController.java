@@ -22,7 +22,7 @@ public class EquipmentController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public MessageResponseDTO createEquipment(@RequestBody @Valid EquipmentDTO equipmentDTO){
+    public EquipmentDTO createEquipment(@RequestBody @Valid EquipmentDTO equipmentDTO){
         return equipmentService.createEquipment(equipmentDTO);
     }
 
@@ -46,9 +46,14 @@ public class EquipmentController {
         return equipmentService.updateById(id, equipmentDTO);
     }
 
-    @PatchMapping("/{id}/changeQuantity")
-    public EquipmentDTO changeEquipmentQuantity(@PathVariable Long id, @RequestBody @Valid QuantityDTO quantityDTO) throws EquipmentNotFoundException {
-        return equipmentService.changeQuantity(id, quantityDTO.getQuantity());
+    @PatchMapping("/{id}/increment")
+    public EquipmentDTO incrementEquipmentQuantity(@PathVariable Long id, @RequestBody @Valid QuantityDTO quantityDTO) throws EquipmentNotFoundException {
+        return equipmentService.incrementQuantity(id, quantityDTO.getQuantity());
+    }
+
+    @PatchMapping("/{id}/decrement")
+    public EquipmentDTO decrementEquipmentQuantity(@PathVariable Long id, @RequestBody @Valid QuantityDTO quantityDTO) throws EquipmentNotFoundException {
+        return equipmentService.decrementQuantity(id, quantityDTO.getQuantity());
     }
 
 
